@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espace privé — Journal du Dr Marc Divaris</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .admin-wrap{ max-width:44rem; margin:0 auto; }
+  .admin-field{ display:block; margin:0 0 1.4rem; }
+  .admin-field span{ display:block; margin-bottom:.4rem; font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); }
+  .admin-field small{ display:block; margin-top:.35rem; font-size:.8rem; color:var(--ink-55); }
+  .admin-field input[type="text"], .admin-field input[type="email"], .admin-field input[type="password"],
+  .admin-field input[type="date"], .admin-field textarea{
+    width:100%; padding:.75rem .9rem; border:1px solid var(--line-strong); border-radius:2px;
+    background:var(--bg-2); color:var(--ink); font-family:var(--sans); font-size:.95rem;
+  }
+  .admin-field textarea{ min-height:10rem; resize:vertical; line-height:1.55; }
+  .admin-field input:focus, .admin-field textarea:focus{ outline:2px solid var(--accent); outline-offset:1px; }
+  .admin-checkbox{ display:flex; align-items:center; gap:.55rem; margin:0 0 1.5rem; font-size:.92rem; }
+  .admin-actions{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:1.5rem; }
+  .admin-msg{ font-family:var(--mono); font-size:.82rem; color:var(--accent); }
+  .admin-error{ font-family:var(--mono); font-size:.82rem; color:var(--accent); }
+  .admin-login-box{ max-width:26rem; margin:3rem auto; padding:2rem; border:1px solid var(--line-strong); border-radius:4px; background:var(--bg-2); }
+  .admin-topbar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:2.5rem; padding-bottom:1.25rem; border-bottom:1px solid var(--line); }
+  .admin-topbar span{ font-family:var(--mono); font-size:.82rem; color:var(--ink-55); }
+  .admin-row{ display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:1rem 0; border-top:1px solid var(--line); flex-wrap:wrap; }
+  .admin-row-info{ display:flex; flex-direction:column; gap:.2rem; }
+  .admin-row-info span{ font-family:var(--mono); font-size:.75rem; color:var(--ink-55); }
+  .admin-row-actions{ display:flex; gap:.5rem; flex-wrap:wrap; }
+  .admin-row-actions .btn{ padding:.5rem .8rem; font-size:.78rem; }
+  #current-cover img{ max-width:200px; border-radius:2px; margin-top:.5rem; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#contenu">Aller au contenu principal</a>
+<header class="site">
+  <div class="wrap site-nav">
+    <a class="brand" href="index.html">Marc Divaris<small>Chirurgie plastique &amp; maxillo-faciale Paris</small></a>
+    <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links"></ul>
+  </div>
+</header>
+<main id="contenu">
+  <section class="page-head plain">
+    <div class="wrap">
+      <p class="eyebrow">Espace privé</p>
+      <div class="mirror-stage"><span class="mirror-line"><span class="real">Rédiger le Journal</span></span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap admin-wrap">
+
+      <div id="admin-login">
+        <div class="admin-login-box">
+          <h2 style="margin-top:0;">Connexion</h2>
+          <form id="login-form">
+            <label class="admin-field">
+              <span>Email</span>
+              <input type="email" id="login-email" required autocomplete="username">
+            </label>
+            <label class="admin-field">
+              <span>Mot de passe</span>
+              <input type="password" id="login-password" required autocomplete="current-password">
+            </label>
+            <p class="admin-error" id="login-error" hidden></p>
+            <button type="submit" class="btn">Se connecter</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="admin-dashboard" hidden>
+        <div class="admin-topbar">
+          <span>Connecté : <strong id="whoami"></strong></span>
+          <button type="button" class="btn btn-outline" id="logout-btn">Se déconnecter</button>
+        </div>
+
+        <h2 id="form-title">Nouvel article</h2>
+        <form id="post-form">
+          <label class="admin-field">
+            <span>Titre</span>
+            <input type="text" id="f-title" required>
+          </label>
+          <label class="admin-field">
+            <span>Date de publication</span>
+            <input type="date" id="f-date" required>
+          </label>
+          <label class="admin-field">
+            <span>Résumé (affiché dans la liste)</span>
+            <textarea id="f-excerpt" style="min-height:4.5rem"></textarea>
+          </label>
+          <label class="admin-field">
+            <span>Contenu</span>
+            <textarea id="f-content" placeholder="Écrivez librement. Laissez une ligne vide entre deux paragraphes."></textarea>
+          </label>
+          <label class="admin-field">
+            <span>Photo de couverture (facultatif)</span>
+            <input type="file" id="f-cover" accept="image/*">
+            <div id="current-cover" hidden><small>Photo actuelle :</small><img src="" alt=""></div>
+          </label>
+          <label class="admin-checkbox">
+            <input type="checkbox" id="f-published" checked>
+            Visible sur le site (décochez pour enregistrer un brouillon)
+          </label>
+          <div class="admin-actions">
+            <button type="submit" class="btn">Publier</button>
+            <button type="button" class="btn btn-outline" id="new-post-btn">Nouvel article vierge</button>
+            <span class="admin-msg" id="save-msg" hidden></span>
+          </div>
+        </form>
+
+        <h2 style="margin-top:3.5rem;">Articles existants</h2>
+        <p class="provisional" id="posts-empty" hidden>Aucun article pour le moment.</p>
+        <div id="posts-list"></div>
+      </div>
+
+    </div>
+  </section>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="legal">
+      <p>Espace privé — non référencé, réservé à la rédaction du Journal.</p>
+      <p>© <span data-year>2026</span> Cabinet du Dr Marc Divaris.</p>
+    </div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/admin.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "cleanUrls": false,
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/index", "destination": "/index.html" },
+    { "source": "/interventions", "destination": "/interventions.html" },
+    { "source": "/intervention", "destination": "/intervention.html" },
+    { "source": "/visage", "destination": "/visage.html" },
+    { "source": "/silhouette", "destination": "/silhouette.html" },
+    { "source": "/cheveux", "destination": "/cheveux.html" },
+    { "source": "/methode", "destination": "/methode.html" },
+    { "source": "/parcours", "destination": "/parcours.html" },
+    { "source": "/publications", "destination": "/publications.html" },
+    { "source": "/consultation", "destination": "/consultation.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/article", "destination": "/article.html" },
+    { "source": "/admin", "destination": "/admin.html" }
+  ]
+}
